@@ -1,0 +1,2 @@
+com.behaviorial.strategy.spi.autoregistration.CreditCardPaymentStrategy
+com.behaviorial.strategy.spi.autoregistration.UPIPaymentStrategy
