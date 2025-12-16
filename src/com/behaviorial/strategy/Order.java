@@ -3,7 +3,7 @@ package com.behaviorial.strategy;
 import com.behaviorial.strategy.impl.PaymentStrategy;
 import com.behaviorial.strategy.model.PaymentRequest;
 import com.behaviorial.strategy.model.PaymentResult;
-import com.behaviorial.strategy.model.PaymentStatus;
+import com.behaviorial.strategy.types.PaymentStatus;
 
 public class Order {
 
