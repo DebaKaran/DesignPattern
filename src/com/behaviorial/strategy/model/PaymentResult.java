@@ -1,5 +1,7 @@
 package com.behaviorial.strategy.model;
 
+import com.behaviorial.strategy.types.PaymentStatus;
+
 public class PaymentResult {
 
     private final PaymentStatus status;

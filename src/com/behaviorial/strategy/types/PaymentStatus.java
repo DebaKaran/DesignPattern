@@ -1,4 +1,4 @@
-package com.behaviorial.strategy.model;
+package com.behaviorial.strategy.types;
 
 public enum PaymentStatus {
 
