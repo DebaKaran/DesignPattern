@@ -86,4 +86,105 @@ Design the system such that:
 
 2: The system remains extensible and maintainable as report types grow
 
+---
+Naive → Factory → Registry → Immutable → EnumMap → SPI auto-registration
 
+1: Naive Implementation (Baseline)
+
+Approach
+
+Client directly creates report objects using a switch on ReportType.
+
+Characteristics
+
+Client knows all concrete implementations.
+
+Adding a new report type requires modifying client code.
+
+Violates Open–Closed Principle.
+
+Purpose
+
+Establish a working baseline.
+
+Make the object-creation problem visible.
+
+2: Simple Factory Extraction
+
+Approach
+
+Moved report creation logic into a dedicated ReportFactory.
+
+Benefits
+
+Client no longer depends on concrete report classes.
+
+Centralized object creation responsibility.
+
+Limitation
+
+Factory still requires modification for every new report type.
+
+switch logic remains.
+
+3: Registry-Based Factory (Map-backed)
+
+Approach
+
+Replaced switch with a map-based registry.
+
+Mapped ReportType → Report implementation.
+
+Benefits
+
+Cleaner code.
+
+Easier to extend than switch-based logic.
+
+Design Decision
+
+Registry initialized once and used only for lookups.
+
+4: Immutability & Thread Safety
+
+Approach
+
+Registry made immutable after startup.
+
+Used EnumMap wrapped with Collections.unmodifiableMap.
+
+Rationale
+
+Registry is read-only after initialization.
+
+Immutability provides thread safety by design.
+
+EnumMap clearly expresses enum-key intent and improves efficiency.
+
+5: SPI-Based Auto-Registration (Final Design)
+
+Approach
+
+Introduced Java SPI (ServiceLoader) for auto-discovery of Report implementations.
+
+Each report declares its supported ReportType.
+
+Factory dynamically builds registry at startup.
+
+Key Advantages
+
+Factory code does not change when new report types are added.
+
+Fully compliant with Open–Closed Principle.
+
+Enables plugin-style extensibility.
+
+Result
+
+New reports can be added by:
+
+Implementing Report
+
+Registering via META-INF/services
+
+No client or factory modification required.
