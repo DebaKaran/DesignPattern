@@ -42,3 +42,48 @@ The following designs were intentionally avoided:
 boolean validate(Payment payment);
 void pay(Payment payment);
 boolean isPaymentSuccess(long paymentId);
+
+---
+Background - Factory Design Pattern
+
+We are building a Report Generation System for an application that needs to generate reports in different formats for users.
+
+### Functional Requirements
+
+1: The system must support generating reports in multiple formats.
+
+2: Initially, the following report formats are required:
+
+A: PDF
+
+B: Excel
+
+C: CSV
+
+3: The client should be able to request a report by specifying the report type.
+
+4: The client should not be concerned with:
+
+A: How the report object is created
+
+B: Which concrete class generates the report
+
+5: Each report type may have its own internal generation logic.
+
+### Non-Functional Requirements
+
+1: The design should allow easy addition of new report formats in the future.
+
+2: Existing client code should not require modification when a new report type is added.
+
+3: The design should keep object creation logic separate from business logic.
+
+### Goal
+
+Design the system such that:
+
+1: Report generation is decoupled from report creation
+
+2: The system remains extensible and maintainable as report types grow
+
+
