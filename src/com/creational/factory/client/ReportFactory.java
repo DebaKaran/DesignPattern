@@ -6,7 +6,18 @@ import com.creational.factory.services.ExcelReport;
 import com.creational.factory.services.PdfReport;
 import com.creational.factory.type.ReportType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ReportFactory {
+
+    private static final Map<ReportType, Report> REGISTRY = new HashMap<>();
+
+    static {
+        REGISTRY.put(ReportType.PDF, new PdfReport());
+        REGISTRY.put(ReportType.CSV, new CsvReport());
+        REGISTRY.put(ReportType.EXCEL, new ExcelReport());
+    }
 
     public static Report getReport(final ReportType type) {
 
@@ -14,17 +25,12 @@ public class ReportFactory {
             throw new IllegalArgumentException("Report type cannot be null");
         }
 
-        switch (type) {
-            case CSV -> {
-                return new CsvReport();
-            }
-            case PDF -> {
-                return new PdfReport();
-            }
-            case EXCEL -> {
-                return new ExcelReport();
-            }
-            default -> throw new IllegalArgumentException("Unsupported report type");
+        Report report = REGISTRY.get(type);
+
+        if(report == null) {
+            throw new IllegalArgumentException("Unsupported report type");
         }
+
+        return report;
     }
 }
