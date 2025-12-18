@@ -12,21 +12,14 @@ import java.util.Map;
 
 public class ReportFactory {
 
-    private static final Map<ReportType, Report> REGISTRY;
+    private static final Map<ReportType, Report> REGISTRY = 
+            Collections.unmodifiableMap(Map.of(
+                    ReportType.PDF, new PdfReport(),
+                    ReportType.CSV, new CsvReport(),
+                    ReportType.EXCEL, new ExcelReport()
+                ));
+    
 
-    static {
-        REGISTRY = loadReports();
-    }
-
-    private static Map<ReportType, Report> loadReports() {
-        Map<ReportType, Report> temp = new HashMap<>();
-        temp.put(ReportType.PDF, new PdfReport());
-        temp.put(ReportType.CSV, new CsvReport());
-        temp.put(ReportType.EXCEL, new ExcelReport());
-
-        // Make registry immutable after startup
-        return Collections.unmodifiableMap(temp);
-    }
 
     public static Report getReport(final ReportType type) {
 
