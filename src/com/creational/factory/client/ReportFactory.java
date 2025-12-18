@@ -6,12 +6,12 @@ import com.creational.factory.services.ExcelReport;
 import com.creational.factory.services.PdfReport;
 import com.creational.factory.type.ReportType;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ReportFactory {
 
-    private static final Map<ReportType, Report> REGISTRY = new HashMap<>();
+    private static final Map<ReportType, Report> REGISTRY = new ConcurrentHashMap<>();
 
     static {
         REGISTRY.put(ReportType.PDF, new PdfReport());
