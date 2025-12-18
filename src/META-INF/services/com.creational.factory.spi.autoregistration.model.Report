@@ -1,0 +1,3 @@
+com.creational.factory.spi.autoregistration.services.CsvReport
+com.creational.factory.spi.autoregistration.services.ExcelReport
+com.creational.factory.spi.autoregistration.services.PdfReport
