@@ -7,19 +7,19 @@ import com.creational.factory.services.PdfReport;
 import com.creational.factory.type.ReportType;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class ReportFactory {
 
-    private static final Map<ReportType, Report> REGISTRY = 
-            Collections.unmodifiableMap(Map.of(
-                    ReportType.PDF, new PdfReport(),
-                    ReportType.CSV, new CsvReport(),
-                    ReportType.EXCEL, new ExcelReport()
-                ));
-    
-
+private static final Map<ReportType, Report> REGISTRY =
+        Collections.unmodifiableMap(
+            new EnumMap<>(Map.of(
+                ReportType.PDF, new PdfReport(),
+                ReportType.CSV, new CsvReport(),
+                ReportType.EXCEL, new ExcelReport()
+            ))
+        );
 
     public static Report getReport(final ReportType type) {
 
