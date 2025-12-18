@@ -6,17 +6,26 @@ import com.creational.factory.services.ExcelReport;
 import com.creational.factory.services.PdfReport;
 import com.creational.factory.type.ReportType;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ReportFactory {
 
-    private static final Map<ReportType, Report> REGISTRY = new ConcurrentHashMap<>();
+    private static final Map<ReportType, Report> REGISTRY;
 
     static {
-        REGISTRY.put(ReportType.PDF, new PdfReport());
-        REGISTRY.put(ReportType.CSV, new CsvReport());
-        REGISTRY.put(ReportType.EXCEL, new ExcelReport());
+        REGISTRY = loadReports();
+    }
+
+    private static Map<ReportType, Report> loadReports() {
+        Map<ReportType, Report> temp = new HashMap<>();
+        temp.put(ReportType.PDF, new PdfReport());
+        temp.put(ReportType.CSV, new CsvReport());
+        temp.put(ReportType.EXCEL, new ExcelReport());
+
+        // Make registry immutable after startup
+        return Collections.unmodifiableMap(temp);
     }
 
     public static Report getReport(final ReportType type) {
