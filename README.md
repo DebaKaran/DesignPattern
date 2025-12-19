@@ -188,3 +188,125 @@ Implementing Report
 Registering via META-INF/services
 
 No client or factory modification required.
+
+---
+
+### Design Without Abstract Factory
+
+This module demonstrates an initial, naive implementation of an e-commerce order processing system without using the Abstract Factory pattern.
+
+A: The purpose of this version is educational:
+
+B: To show how a real system is commonly designed at first
+
+C: To clearly expose the design problems
+
+D: To act as a baseline before introducing Abstract Factory
+
+### Business Requirement
+
+The platform supports multiple regions:
+
+A: India
+
+B: USA
+
+C: Europe
+
+For every order, the system must:
+
+A: Process payment
+
+B: Generate invoice
+
+C: Arrange shipping
+
+While the business flow is identical, the implementations vary by region due to:
+
+A: Different payment gateways
+
+B: Different tax regulations
+
+C: Different logistics providers
+
+### Current Design Approach
+
+OrderService directly:
+
+A: Determines the region
+
+B: Selects payment implementation
+
+C: Selects invoice implementation
+
+D: Selects shipping implementation
+
+Region-specific logic is handled using conditional statements (if / else).
+
+All object creation and orchestration happen inside the core service.
+
+### Problems With This Design
+
+1: Violation of Single Responsibility Principle
+
+OrderService is responsible for:
+
+A: Business flow
+
+B: Payment selection
+
+C: Tax rules
+
+D: Shipping vendor selection
+
+This makes the class large, fragile, and hard to reason about.
+
+2: Tight Coupling to Concrete Implementations
+
+OrderService directly depends on:
+
+A: Payment implementations
+
+B: Invoice implementations
+
+C: Shipping implementations
+
+Any change in vendors or regulations forces a change in core business logic.
+
+3: Poor Scalability
+
+Adding a new region (e.g., Japan) requires:
+
+A: Modifying OrderService
+
+B: Adding more conditional logic
+
+C: Retesting all existing regions
+
+This violates the Open/Closed Principle.
+
+4: Risk of Incompatible Object Combinations
+
+Because object selection is manual:
+
+A: Incorrect combinations can be introduced
+
+Example: UPI payment with VAT invoice
+
+B: Such bugs are hard to detect at compile time
+
+C: Often discovered only in production
+
+5: Difficult Testing
+
+Testing OrderService requires mocking:
+
+A: Payment logic
+
+B: Invoice logic
+
+C: Shipping logic
+
+D: Region-based conditions
+
+This increases test complexity and maintenance cost.
