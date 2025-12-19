@@ -1,7 +1,7 @@
 package com.creational.abstractfactory.without.ecommerce.order;
 
 import com.creational.abstractfactory.types.Country;
-import com.creational.abstractfactory.types.PaymentMethod;
+import com.creational.abstractfactory.types.PaymentType;
 import com.creational.abstractfactory.without.ecommerce.invoice.InvoiceService;
 import com.creational.abstractfactory.without.ecommerce.invoice.europe.VatInvoiceService;
 import com.creational.abstractfactory.without.ecommerce.invoice.india.GstInvoiceService;
@@ -21,7 +21,7 @@ public class OrderService {
 
     public void placeOrder(
             Country country,
-            PaymentMethod paymentMethod,
+            PaymentType paymentMethod,
             double amount
     ) {
 
@@ -32,7 +32,7 @@ public class OrderService {
         // COUNTRY-BASED DECISION HELL 🔥
         if (country == Country.INDIA) {
 
-            if (paymentMethod == PaymentMethod.UPI) {
+            if (paymentMethod == PaymentType.UPI) {
                 paymentService = new UpiPaymentService();
             } else {
                 paymentService = new CreditCardPaymentService();
@@ -43,7 +43,7 @@ public class OrderService {
 
         } else if (country == Country.USA) {
 
-            if (paymentMethod == PaymentMethod.PAYPAL) {
+            if (paymentMethod == PaymentType.PAYPAL) {
                 paymentService = new PaypalPaymentService();
             } else {
                 paymentService = new CreditCardPaymentServiceUSA();

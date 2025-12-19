@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.invoice.europe;
+package com.creational.abstractfactory.services.invoice.europe;
 
-import com.creational.abstractfactory.without.ecommerce.invoice.InvoiceService;
+import com.creational.abstractfactory.services.invoice.InvoiceService;
 
 public class VatInvoiceService implements InvoiceService {
 

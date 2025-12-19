@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.invoice.usa;
+package com.creational.abstractfactory.services.invoice.usa;
 
-import com.creational.abstractfactory.without.ecommerce.invoice.InvoiceService;
+import com.creational.abstractfactory.services.invoice.InvoiceService;
 
 public class SalesTaxInvoiceService implements InvoiceService {
 

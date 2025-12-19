@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.shipping.india;
+package com.creational.abstractfactory.services.shipping.india;
 
-import com.creational.abstractfactory.without.ecommerce.shipping.ShippingService;
+import com.creational.abstractfactory.services.shipping.ShippingService;
 
 public class DelhiveryShippingService implements ShippingService {
 

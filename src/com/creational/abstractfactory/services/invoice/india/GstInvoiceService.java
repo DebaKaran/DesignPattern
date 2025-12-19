@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.invoice.india;
+package com.creational.abstractfactory.services.invoice.india;
 
-import com.creational.abstractfactory.without.ecommerce.invoice.InvoiceService;
+import com.creational.abstractfactory.services.invoice.InvoiceService;
 
 public class GstInvoiceService implements InvoiceService {
 

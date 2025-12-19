@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.payment.india;
+package com.creational.abstractfactory.without.ecommerce.payment.india;
 
-import com.creational.abstractfactory.payment.PaymentService;
+import com.creational.abstractfactory.without.ecommerce.payment.PaymentService;
 
 public class UpiPaymentService implements PaymentService {
 

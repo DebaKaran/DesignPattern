@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.payment.usa;
+package com.creational.abstractfactory.without.ecommerce.payment.usa;
 
-import com.creational.abstractfactory.payment.PaymentService;
+import com.creational.abstractfactory.without.ecommerce.payment.PaymentService;
 
 public class PaypalPaymentService implements PaymentService {
 

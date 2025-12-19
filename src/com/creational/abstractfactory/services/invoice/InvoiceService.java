@@ -1,4 +1,4 @@
-package com.creational.abstractfactory.without.ecommerce.invoice;
+package com.creational.abstractfactory.services.invoice;
 
 public interface InvoiceService {
     void generateInvoice();

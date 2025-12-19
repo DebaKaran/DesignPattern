@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.payment.europe;
+package com.creational.abstractfactory.without.ecommerce.payment.europe;
 
-import com.creational.abstractfactory.payment.PaymentService;
+import com.creational.abstractfactory.without.ecommerce.payment.PaymentService;
 
 public class SepaPaymentService implements PaymentService {
 

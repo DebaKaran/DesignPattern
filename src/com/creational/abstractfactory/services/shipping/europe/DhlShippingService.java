@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.shipping.europe;
+package com.creational.abstractfactory.services.shipping.europe;
 
-import com.creational.abstractfactory.without.ecommerce.shipping.ShippingService;
+import com.creational.abstractfactory.services.shipping.ShippingService;
 
 public class DhlShippingService implements ShippingService {
 
