@@ -1,6 +1,6 @@
 package com.creational.abstractfactory.types;
 
-public enum PaymentMethod {
+public enum PaymentType {
     UPI,
     CREDIT_CARD,
     PAYPAL,

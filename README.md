@@ -310,3 +310,135 @@ C: Shipping logic
 D: Region-based conditions
 
 This increases test complexity and maintenance cost.
+
+---
+1: Initial Design — Naive Region-Based Implementation
+
+A: Approach
+
+OrderService directly handled:
+
+-> Region checks
+
+-> Payment selection
+
+-> Invoice generation
+
+-> Shipping provider selection
+
+Conditional logic (if / else, switch) was used to assemble components.
+
+B: Problems Identified
+
+B1: OrderService violated Single Responsibility Principle
+
+B2:  Tight coupling to concrete implementations
+
+B: Adding a new region required modifying core business logic
+
+B4: High risk of incompatible combinations (e.g., UPI + VAT)
+
+B5: Difficult to test and extend
+
+This version worked functionally but was fragile and hard to scale.
+
+2: Problem Analysis — Identifying Product Families
+
+During analysis, it became clear that:
+
+A: Payment, Invoice, and Shipping services vary together
+
+B: These components form a region-specific family
+
+C: The client (OrderService) should not assemble these families manually
+
+This insight motivated the move toward Abstract Factory.
+
+3: Introducing Abstract Factory — Region as a Variant
+
+A: Key Design Change
+
+-> Introduced RegionOrderFactory as an abstraction
+
+-> Each region is represented by a concrete factory:
+
+IndiaOrderFactory
+
+USAOrderFactory
+
+EuropeOrderFactory
+
+-> Each factory is responsible for creating a compatible set of:
+
+PaymentService
+
+InvoiceService
+
+ShippingService
+
+-> Result
+
+Region-specific creation logic is fully encapsulated
+
+OrderService no longer depends on concrete implementations
+
+Adding a new region requires adding a new factory only
+
+4: Handling Runtime Payment Choice — Strategy Pattern
+
+A critical distinction was made between:
+
+A: What payment methods are allowed per region (compile-time concern)
+
+B: Which payment method a user selects at runtime (business logic)
+
+To handle this cleanly:
+
+A: Each region-specific PaymentService internally uses the Strategy pattern
+
+B: Supported payment strategies (UPI, Credit Card, PayPal, SEPA) are registered per region
+
+C: Runtime selection is delegated to the strategy layer
+
+This avoids polluting the factory interface with runtime parameters.
+
+5: Immutability & Safety Improvements
+
+To ensure robustness:
+
+A: Payment strategy registries are built using a mutable EnumMap
+
+B: The registry is exposed as an unmodifiable map after construction
+
+C: Defensive checks prevent duplicate strategy registration
+
+This guarantees:
+
+A: Thread-safe read access
+
+B: Fail-fast behavior for configuration errors
+
+C: Clear ownership of mutable state
+
+6: Final Refactored OrderService
+
+After refactoring:
+
+A: OrderService depends only on RegionOrderFactory
+
+B: It orchestrates the order flow without knowing:
+
+Region details
+
+Vendor implementations
+
+Payment mechanisms
+
+C: The service is now:
+
+Stable
+
+Easy to test
+
+Open for extension, closed for modification
+
