@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.shipping.usa;
+package com.creational.abstractfactory.shipping.usa;
 
-import com.creational.abstractfactory.without.ecommerce.shipping.ShippingService;
+import com.creational.abstractfactory.shipping.ShippingService;
 
 public class FedexShippingService implements ShippingService {
 

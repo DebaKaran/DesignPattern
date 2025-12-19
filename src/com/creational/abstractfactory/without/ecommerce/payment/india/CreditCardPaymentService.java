@@ -1,6 +1,6 @@
-package com.creational.abstractfactory.without.ecommerce.payment.india;
+package com.creational.abstractfactory.payment.india;
 
-import com.creational.abstractfactory.without.ecommerce.payment.PaymentService;
+import com.creational.abstractfactory.payment.PaymentService;
 
 public class CreditCardPaymentService  implements PaymentService {
 

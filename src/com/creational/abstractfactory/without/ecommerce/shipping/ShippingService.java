@@ -1,4 +1,4 @@
-package com.creational.abstractfactory.without.ecommerce.shipping;
+package com.creational.abstractfactory.shipping;
 
 public interface ShippingService {
     void shipOrder();
