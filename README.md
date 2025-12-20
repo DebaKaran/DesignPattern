@@ -442,3 +442,184 @@ Easy to test
 
 Open for extension, closed for modification
 
+---
+State Design Pattern
+
+Order → Payment → Shipment
+Requirements (Without State Design Pattern)
+1. Overview
+
+This module models a basic order processing workflow involving:
+
+Order creation
+
+Payment processing
+
+Shipment handling
+
+The initial implementation is intentionally designed without using the State Design Pattern, relying instead on enums and conditional logic.
+This serves as a baseline design to highlight scalability and maintainability issues that arise as state complexity increases.
+
+2. Core Domain Concepts
+2.1 Order
+
+An Order represents a customer purchase and acts as the central entity controlling the lifecycle.
+
+Each order has:
+
+A unique order identifier
+
+A payable amount
+
+A lifecycle status
+
+2.2 Payment
+
+Payment is an action, not a long-lived entity.
+
+Payment can be attempted only for eligible orders
+
+Each payment attempt results in either:
+
+Success
+
+Failure
+
+2.3 Shipment
+
+Shipment represents the fulfillment process after payment.
+
+Shipment is allowed only after successful payment
+
+Delivery may succeed or fail
+
+3. Enumerations Used
+3.1 Order Status (OrderType)
+
+Represents the current lifecycle state of the order.
+
+Supported values:
+
+NEW – Order created, payment not done
+
+PAID – Payment completed successfully
+
+SHIPPED – Order dispatched
+
+CANCELLED – Order cancelled
+
+3.2 Payment Result (PaymentResult)
+
+Represents the outcome of a payment attempt.
+
+Supported values:
+
+SUCCESS
+
+FAILURE
+
+3.3 Shipment Status (ShipmentStatus)
+
+Represents the current shipment progress.
+
+Supported values:
+
+SHIPPED
+
+DELIVERY_FAILED
+
+DELIVERED
+
+4. Order Lifecycle Rules
+4.1 Valid State Transitions
+
+NEW
+ └─(payment success)→ PAID
+      └─(shipment created)→ SHIPPED
+           └─(delivered)→ DELIVERED
+
+4.2 Payment Rules
+
+Payment can be initiated only when order is in NEW state
+
+On payment success:
+
+    Order transitions to PAID
+
+On payment failure:
+
+    Order remains in NEW
+
+Retry is allowed
+
+4.3 Shipment Rules
+
+Shipment can be initiated only when order is in PAID state
+
+Shipment transitions the order to SHIPPED
+
+After shipment:
+
+    Order may be marked as DELIVERED
+
+    Or marked as DELIVERY_FAILED
+
+4.4 Cancellation Rules
+
+Order can be cancelled only when:
+
+NEW
+
+PAID
+
+Order cannot be cancelled after shipment
+
+Once cancelled:
+
+No further operations are allowed
+
+5. Invalid Operations (Must Be Prevented)
+
+Shipping an order that is not paid
+
+Paying an order that is already paid or cancelled
+
+Cancelling an order after shipment
+
+Marking delivery without shipment
+
+All invalid operations must result in runtime errors.
+
+6. Design Constraints (Intentional)
+
+A single Order class manages:
+
+Payment initiation
+
+Shipment initiation
+
+Cancellation
+
+State is managed using:
+
+Enums
+
+Conditional logic (if / switch)
+
+No polymorphic state objects
+
+No State Design Pattern
+
+This design is deliberately simple to expose limitations as requirements grow.
+
+7. Known Limitations
+
+Business rules are scattered across multiple methods
+
+Adding a new state requires modifying existing logic
+
+Order class grows in complexity as transitions increase
+
+Violates Open–Closed Principle (OCP)
+
+These limitations motivate refactoring to the State Design Pattern in the next iteration.
